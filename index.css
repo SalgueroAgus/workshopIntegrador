@@ -1,0 +1,22 @@
+.img{
+    background-image: url("./unnamed.jpg");
+    background-position: center center;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column nowrap;
+}
+
+.titulo{
+
+    color: seashell;
+    font-size: 8rem;
+}
+
+#boton{
+    margin-top: 5rem;
+    position: center;
+}
