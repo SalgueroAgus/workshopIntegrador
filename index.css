@@ -20,3 +20,7 @@
     margin-top: 5rem;
     position: center;
 }
+
+.formulario{
+    display: none;
+}
