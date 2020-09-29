@@ -15,13 +15,14 @@ server.use(log);
 
 let inscriptos = [];
 
+let mailInvalido = ['@gmail','@yahoo','@hotmail'];
+
 
 //validar informacion de usuario completa
 
 function validarContacto(req, res, next) {
     const { nombre, apellido, email,telefono } = req.body;
-    console.log(req.body);
-
+    
     if (!nombre || !apellido || !email || !telefono ) {
         return res.status(400)
             .json('Datos del contacto invalido!!!');
@@ -36,7 +37,6 @@ function validarSiExiste(req, res, next) {
     const { email } = req.body;
     
     const i = inscriptos.findIndex(c => {
-        console.log('buscando mail');
         return c.email == email;
     });
 
@@ -48,11 +48,26 @@ function validarSiExiste(req, res, next) {
     return next();
 }
 
+// valida mail valido
+function validarMail (req,res,next){
+
+    const { email } = req.body;
+   
+    for(i=0;i<mailInvalido.length;i++){
+        if(email.includes(mailInvalido[i])){
+            console.log ('email invalido');
+            return res.status(400).json('mail no valido para inscripcion');
+        };
+    };
+    return next();
+
+    };
+   
+
 //Crea endpoint post
 
-server.post('/inscripcion', validarContacto, validarSiExiste, (req, res) => {
+server.post('/inscripcion', validarContacto, validarSiExiste,validarMail, (req, res) => {
     console.log('entre');
-    console.log(req.body);
     inscriptos.push(req.body);
     
     res.json("Contacto agregado");
@@ -69,6 +84,15 @@ server.use((err, req, res, next) => {
 
     return res.status(500)
         .json("Se ha producido un error inesperado.");
+});
+
+
+//Enviar lista //
+
+
+
+server.get('/lista', (req, res) => {
+    res.send(inscriptos);
 });
 
 
