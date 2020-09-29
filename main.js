@@ -26,3 +26,15 @@ postServer = () =>{
   .then(response => response.json())
   .then(data => console.log(data));
 }
+
+
+// Formulario oculto //
+
+const button = document.getElementById("boton");
+
+button.addEventListener("click",()=>{
+    let formulario = document.getElementById("formulario"); 
+    formulario.style.display = 'block';
+    console.log('hola mundo');
+    
+});
